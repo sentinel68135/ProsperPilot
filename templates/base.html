@@ -1,0 +1,53 @@
+<!-- templates/base.html -->
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>{% block title %}Your Default Title{% endblock title %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Free Admin & Dashboard Template" name="description" />
+    <meta content="Pichforest" name="author" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
+
+
+
+    <!-- Bootstrap Css -->
+    <link href="{% static 'css/bootstrap.min.css' %}" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <link href="{% static 'css/icons.min.css' %}" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="{% static 'css/app.min.css' %}" id="app-style" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    {% include 'header.html' %}
+
+    {% include 'sidebar.html' %}
+    <!-- Rest of the body -->
+    <div id="content">
+        {% block content %}
+        <!-- Content from child templates will go here -->
+        {% endblock content %}
+    </div>
+    {% include 'footer.html' %}
+
+    <!-- Scripts can be added here -->
+    {% block scripts %}
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="{% static 'libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'libs/simplebar/simplebar.min.js' %}"></script>
+    <script src="{% static 'libs/feather-icons/feather.min.js' %}"></script>
+
+
+    <!-- apexcharts -->
+    <script src={% static "libs/apexcharts/apexcharts.min.js" %}></script>
+
+    <script src={% static "js/pages/dashboard-sales.init.js" %}></script>
+
+    <script src={% static "js/app.js" %}></script>
+    {% endblock scripts %}
+</body>
+</html>

@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load form_tags %}
+
+
+{% block content %}
+<!-- ============================================================== -->
+<!-- Start right Content here -->
+<!-- ============================================================== -->
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-flex align-items-center justify-content-between">
+                        <h4 class="mb-0">Add Account</h4>
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">Utility</a></li>
+                                <li class="breadcrumb-item active">Starter Page</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+
+        </div> <!-- container-fluid -->
+            <form method="post">
+                {% csrf_token %}
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header justify-content-between d-flex align-items-center">
+                            <h4 class="card-title">Textual Inputs</h4>
+                    </div><!-- end card header -->
+
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-xl-6">
+                                 {% for field in form.visible_fields %}
+                                     {% if field.name == 'account_type' %}
+                                <div class="mb-3 row">
+                                    <label for="{{ field.id_for_label }}" class="col-md-2 col-form-label">{{ field.label }}</label>
+                                    <div class="col-md-10">
+                                        <select class="form-select">
+                                            {% for key, value in field.field.choices %}
+                                                <option value="{{ key }}" {% if field.value == key %}selected{% endif %}>{{ value }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div> <!-- mb3 end row -->
+                                {% else %}
+                                 <div class="mb-3 row">
+                                    <label for="example-text-input" class="col-md-2 col-form-label">{{ field.label }}</label>
+                                    <div class="col-md-10">
+                                        {{ field|add_class:"form-control" }}
+                                    </div> <!-- col-md-10 -->
+
+                            </div><!-- end row -->
+                                 {% endif %}
+                            {% endfor %}
+                            <div class="mt-4">
+                                <button type="submit" class="btn btn-primary w-md">Create Account</button>
+                                {% if messages %}
+                                    {% for message in messages %}
+                                        {{ form.non_field_errors }}
+                                        {% for field in form %}
+                                        <div class="alert alert-{{ message.tags }}"
+                                             {{ message }}{{ field.errors }}
+                                        </div>
+                                            {% endfor %}
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                        </div> <!-- col-xl-6 -->
+                    </div> <!-- end card body -->
+
+            </form> <!-- post -->
+    </div>
+    <!-- End Page-content -->
+
+
+{% endblock %}
